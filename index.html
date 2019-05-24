@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Example</title>
+        <script src="https://aframe.io/releases/0.5.0/aframe.min.js"></script>
+        <script src="https://unpkg.com/aframe-animation-component@3.2.1/dist/aframe-animation-component.min.js"></script>
+        <script src="https://unpkg.com/aframe-particle-system-component@1.0.x/dist/aframe-particle-system-component.min.js"></script>
+        <script>
+              AFRAME.registerComponent('handle-events', {
+                init: function () {
+                  var el = this.el;  // <a-box>
+                  el.addEventListener('mouseenter', function () {
+                    el.setAttribute('color', '#24CAFF');  
+                  });
+                  el.addEventListener('mouseleave', function () {
+                    el.setAttribute('color', '#EF2D5E');  
+                  });
+                  el.addEventListener('click', function () {
+                    el.setAttribute('scale', {x: 2, y: 1, z: 2});
+                  });
+                } 
+              });
+        </script>
+    </head>
+    <body>
+        <a-scene log="I am scene">
+            <a-assets>
+                <img id="groundTexture" src="https://img.gs/bbdkhfbzkk/stretch/https://i.imgur.com/25P1geh.png">
+            </a-assets>
+
+            <!-- Camera and add a cursor-->
+            <a-camera><a-cursor></a-cursor></a-camera>
+            <a-box color="#EF2D5E" position="5 1 -4" handle-events></a-box>
+
+            <a-entity id="left" hand-controls="left"></a-entity>
+            <a-entity id="right" hand-controls="right"></a-entity>
+
+
+            <a-entity id='snow' particle-system="preset: snow; particleCount: 10000"></a-entity>
+            <a-entity log="moon on the sky" id='moon' geometry="primitive: sphere; radius: 10;" position="-200 180 -200" material="color: #ffffb3;roughness: 0.6;" ></a-entity>
+
+
+            <a-entity id="myBox" geometry="primitive: box; width: 1; depth: 1; height: 1" position="-1 0.5 -3" rotation="0 45 0" material="color: #4CC3D9;"></a-entity>
+            <a-entity id="mySphere" geometry="primitive: sphere" position="0 1.25 -5" radius="1.25" material="color:#EF2D5E"></a-entity>
+            <a-entity id="myCylinder" animation="property: scale;loop: true; to: 1.05 1.05; elasticity: 0;" geometry="primitive: cylinder; radius: 1;height: 1" position="1 0.75 -3" material="color:#FFC65D;"></a-entity>
+            <a-entity id="myPlane" geometry="primitive: plane; width: 10000; height: 10000" material="color: #030303; src: #groundTexture; repeat: 10000 10000; transparent: true; metalness: 0.6; roughness: 0.3" rotation="-90 0 0"></a-entity>
+            <a-entity id="myBackground" geometry="primitive: sphere; radius: 3000;" material="shader: flat; color: #151515; side: back;"></a-entity>
+            
+            <a-entity light="type: ambient; color: #444"></a-entity>
+            
+            <a-entity light="type: directional; color: #AAA" position="-1 2 0"></a-entity>
+        </a-scene>
+    </body>
+    <script src="index.js"></script>
+</html>
